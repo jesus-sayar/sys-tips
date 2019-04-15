@@ -10,19 +10,19 @@ Devuelve un lista con el numero de respuestas por codigo HTTP de respuesta (200,
 
 `awk '{print $9}' /var/log/nginx/access.log | sort | uniq -c | sort -rn`
 
-#### get top requesters by IP
+#### Get top requesters by IP
 `awk '{print $1}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head | awk -v OFS='\t' '{"host " $2 | getline ip; print $0, ip}'`
 
-#### get top requesters by user agent
+#### Get top requesters by user agent
 `awk -F'"' '{print $6}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head`
 
-#### get top requests by URL
+#### Get top requests by URL
 `awk '{print $7}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head`
 
-#### get top URL returning 404 Not Found
+#### Get top URL returning 404 Not Found
 `awk '$9 ~ /404/ {print $7}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head`
 
-#### get all request of last 10 minutes
+#### Get all request of last 10 minutes
 `awk -v date=$(date +[%d/%b/%Y:%H:%M --date="-10 minutes") '$4 > date' /var/log/nginx/access.log`
 
 ### Miscellaneous
