@@ -4,6 +4,11 @@ Lista de comandos útiles para el trabajo con sistemas.
 
 ### Nginx
 
+`curl --header "Host: foobar.com" "http://localhost:80"`
+
+Ejecutando este comando desde la maquina donde hay un Nginx. Podemos verificar que el Nginx funciona correctamente
+y saltarnos los balanceadores que hay por encima.
+
 `cat site.access.log | cut -d ' ' -f 4 | cut -d : -f2 | uniq -c`
 
 Devuelve todas las peticiones
@@ -12,17 +17,17 @@ Devuelve todas las peticiones
 
 `awk '{print $9}' site.access.log | sort | uniq -c | sort`
 
-Devuelve el código de respuesta de la petición y la cantidad de las mismas.
+Devuelve un lista con el numero de respuestas por codigo HTTP de respuesta (200, 400, 500, etc...).
 
 **Útil cuando** queremos saber si nuestro aplicativo esta respondiendo adecuadamente a las peticiones.
 
 `awk -F\" '{print $2}' access.log | awk '{print $2}' | sort | uniq -c | sort -r`
 
-Devuelve el número de URLs mas solicitadas.
+Devuelve las URLs mas solicitadas.
 
 `awk -F\" '($2 ~ /XYZ/){print $2}' access.log | awk '{print $2}' | sort | uniq -c | sort -r`
 
-Devuelve el número de URLs mas solicitadas que contienen XYZ.
+Devuelve las URLs mas solicitadas que contienen XYZ.
 
 ### Miscellaneous
 
