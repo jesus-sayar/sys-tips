@@ -1,14 +1,11 @@
 ## Commands
 
-Lista de comandos útiles para el trabajo con sistemas.
-
 ### Nginx
 
-Peticion curl con cabeceras:
-
+#### Peticion curl con cabeceras
 `curl --header "Host: foobar.com" "http://localhost:80"`
 
-#### Get total requests by status code. 
+#### Get total requests by status code
 Devuelve un lista con el numero de respuestas por codigo HTTP de respuesta (200, 400, 500, etc...)
 `awk '{print $9}' /var/log/nginx/access.log | sort | uniq -c | sort -rn`
 
@@ -22,7 +19,7 @@ Devuelve un lista con el numero de respuestas por codigo HTTP de respuesta (200,
 `awk '{print $7}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head`
 
 #### get top URL returning 404 Not Found
-awk '$9 ~ /404/ {print $7}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head
+`awk '$9 ~ /404/ {print $7}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head`
 
 #### get all request of last 10 minutes
 awk -v date=$(date +[%d/%b/%Y:%H:%M --date="-10 minutes") '$4 > date' /var/log/nginx/access.log
@@ -31,6 +28,7 @@ awk -v date=$(date +[%d/%b/%Y:%H:%M --date="-10 minutes") '$4 > date' /var/log/n
 
 #### Ver logs en tiempo real
 **Útil cuando** queremos comprobar en tiempo real si nuestro site está recibiendo peticiones y las está respondiendo correctamente. También es útil concatenarle el comando GREP para ver si hay mas 404 de lo normal, por ejemplo.
+
 `tail -400f shoryuken.log`
 
 #### Encuentra todos los ficheros del sistema que ocupan más de 50M.
