@@ -7,6 +7,7 @@
 
 #### Get total requests by status code
 Devuelve un lista con el numero de respuestas por codigo HTTP de respuesta (200, 400, 500, etc...)
+
 `awk '{print $9}' /var/log/nginx/access.log | sort | uniq -c | sort -rn`
 
 #### get top requesters by IP
@@ -22,7 +23,7 @@ Devuelve un lista con el numero de respuestas por codigo HTTP de respuesta (200,
 `awk '$9 ~ /404/ {print $7}' /var/log/nginx/access.log | sort | uniq -c | sort -rn | head`
 
 #### get all request of last 10 minutes
-awk -v date=$(date +[%d/%b/%Y:%H:%M --date="-10 minutes") '$4 > date' /var/log/nginx/access.log
+`awk -v date=$(date +[%d/%b/%Y:%H:%M --date="-10 minutes") '$4 > date' /var/log/nginx/access.log`
 
 ### Miscellaneous
 
@@ -39,6 +40,7 @@ awk -v date=$(date +[%d/%b/%Y:%H:%M --date="-10 minutes") '$4 > date' /var/log/n
 
 #### listado de ficheros abiertos del sistema.
 Útil cuando quieras saber el estado de un fichero o si está siendo utilizado por alguna parte del sistema.
+
 `lsof`
 
 ### MySQL
@@ -47,15 +49,18 @@ awk -v date=$(date +[%d/%b/%Y:%H:%M --date="-10 minutes") '$4 > date' /var/log/n
 `mysql -u root -p -h localhost app_dev < app_prod.20151202.sql`
 
 ### Networking
+
 #### Test de carga con Vegeta
 `echo “GET https://www.google.es/" | vegeta attack — rate=5 — duration 30s | vegeta report`
 
 #### Comprar el estaedo del puerto X
 **Útil cuando** tenemos un servicio que se comunique con dicho puerto y comprobamos si la interfaz de comunicación falla en este punto.
+
 `netstat -pton | grep 8082`
 
 #### Comprar cantidad de peticiones en cola del aplicativo
 **Útil cuando** necesitas comprobar si tus webservers están encolando.
+
 `netstat -pton | grep 8081 | grep -v WAIT | grep -v unicorn | wc -l`
 
 ### DNS
